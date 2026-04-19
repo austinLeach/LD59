@@ -3,6 +3,11 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
+    //movement
+    Vector2 direction;
+    float horizontal;
+    float vertical;
+
     public float pickupRange = 1.5f;
     public KeyCode pickupKey = KeyCode.E;
     float lastPickupTime = 0f;
@@ -23,6 +28,16 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         HandlePickup();
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 position = rb.position;
+        position.x = position.x + 10f * horizontal * Time.deltaTime;
+        position.y = position.y + 10f * vertical * Time.deltaTime;
+        rb.MovePosition(position);
     }
 
     private void HandlePickup()

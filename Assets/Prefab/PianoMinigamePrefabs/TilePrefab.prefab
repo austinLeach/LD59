@@ -52,11 +52,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
   m_IgnoreLayout: 0
   m_MinWidth: -1
-  m_MinHeight: 200
-  m_PreferredWidth: 100
-  m_PreferredHeight: 200
+  m_MinHeight: 150
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
   m_FlexibleWidth: -1
-  m_FlexibleHeight: 0
+  m_FlexibleHeight: -1
   m_LayoutPriority: 1
 --- !u!222 &7624601142719521348
 CanvasRenderer:
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3522658138155718236, guid: 1ee2cbc729821e34e891cabb83e538fd, type: 3}
+  m_Sprite: {fileID: -3522658138155718236, guid: 88cf924c06a17e149879f458ce506668, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
