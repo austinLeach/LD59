@@ -5,9 +5,14 @@ public class HammerScriptHandler : MonoBehaviour
 {
     public MusicBox musicBox;
     public GameObject noteBoxHammer;
-    Rigidbody2D boxBody;
-    TargetJoint2D targetJoint;
-    Vector3 offset;
+    public RaycastHit2D hitObj;
+
+    private Rigidbody2D boxBody;
+    private TargetJoint2D targetJoint;
+    private Vector3 offset;
+    private bool dragging;
+    private bool anchorSet = false;
+    private string tagName = "Box";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,36 +30,47 @@ public class HammerScriptHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(Input.GetMouseButtonDown(0));
-        Vector3 mousePosition = Input.mousePosition;
+        Vector2 ray = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+       
+        dragging = Input.GetMouseButton(0);
+        //Debug.Log(dragging);
 
-        if (Input.GetMouseButtonDown(0))
+
+        if (dragging == true)
         {
-            //TODO: NEED TO FIGURE OUT HOW TO DO MOUSE DRAG
-            Collider2D targetObject = Physics2D.OverlapPoint(mousePosition);
-
-            if (targetObject)
+            int layerObject = 3;
+            if (anchorSet == false)
             {
-                targetObject.GameObject().GetComponent<TargetJoint2D>().anchor = new Vector2(mousePosition.x, mousePosition.y);
-                //foundObject.
-                //Physics2D.OverlapPoint(mousePosition);
-                //set the anchor to current mouse
-                 //= new Vector2 (mousePosition.x, mousePosition.y);
-                
-                //Constantly update target position to mouse position
-                while (Input.GetMouseButtonDown(0) != true) {
-                    targetObject.GameObject().GetComponent<TargetJoint2D>().target = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                    targetObject.GameObject().GetComponent<TargetJoint2D>().enabled = true;
-
+                hitObj = Physics2D.Raycast(ray, ray, layerObject);
+            }
+            if (hitObj.collider != null && hitObj.collider.gameObject.CompareTag("Box"))
+            {
+                //Debug.Log(hitObj.collider.gameObject.GetComponent<TargetJoint2D>().anchor);
+                //set anchor point
+                if (anchorSet == false)
+                {
+                    targetJoint = hitObj.collider.gameObject.GetComponent<TargetJoint2D>();
+                    hitObj.collider.gameObject.GetComponent<TargetJoint2D>().anchor = ray.normalized * 0.1f;
+                    hitObj.collider.gameObject.GetComponent<TargetJoint2D>().target = new Vector2(ray.x, ray.y);
+                    anchorSet = true;
                 }
-                targetObject.GameObject().GetComponent<TargetJoint2D>().enabled = false;
+                //Constantly update target position to mouse position
+
 
             }
+
+            //Constantly move the box to cursor
+            if (hitObj.collider.gameObject.CompareTag("Box"))
+            {
+                hitObj.collider.gameObject.GetComponent<TargetJoint2D>().target = new Vector2(ray.x, ray.y);
+            }
+        }
+        else
+        {
+            if (anchorSet == true)
+                anchorSet = false;
         }
 
     }
-    private void FixedUpdate()
-    {
-        Debug.Log(Input.GetMouseButtonDown(0));
-    }
+
 }

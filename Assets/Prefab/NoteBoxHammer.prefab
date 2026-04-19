@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 3344643339443037636}
   - component: {fileID: 6896445580751185205}
   - component: {fileID: 8218494593331261917}
-  - component: {fileID: 3718222390596769016}
+  - component: {fileID: 5428040505434081360}
   - component: {fileID: -1932056988876980615}
   - component: {fileID: 1270434060029860598}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: NoteBoxHammer
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 3316640904631551605, guid: 106be219d647bc0419d4b12a1d2369b1, type: 3}
   m_Color: {r: 1, g: 0.23281917, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,7 +108,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -133,15 +133,15 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.5, y: 0.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &3718222390596769016
+--- !u!114 &5428040505434081360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,11 +153,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa530e39b870fa47b699bf41289b6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HammerMusicNotes
-  thisTargetJoint: {fileID: 0}
-  anchor: {x: 0, y: 0}
-  Target: {x: 0, y: 0}
-  damageValue: 1
+  damageValue: 0
   done: 0
+  boxArray:
+  - {fileID: 3316640904631551605, guid: 106be219d647bc0419d4b12a1d2369b1, type: 3}
+  - {fileID: -3522658138155718236, guid: 88cf924c06a17e149879f458ce506668, type: 3}
+  - {fileID: -8984812043881409801, guid: 63c286bdb257bba4ba775363d731cdcb, type: 3}
 --- !u!50 &-1932056988876980615
 Rigidbody2D:
   serializedVersion: 5
@@ -192,7 +193,7 @@ TargetJoint2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966651501126751529}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 0}
