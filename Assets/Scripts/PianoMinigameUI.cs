@@ -149,31 +149,25 @@ public class PianoMinigameUI : MonoBehaviour
     {
         UpdateProgress();
 
-        // Reset all tiles to transparent
+        // Clear all tiles
         for (int c = 0; c < _tiles.Length; c++)
             for (int s = 0; s < _tiles[c].Length; s++)
                 _tiles[c][s].color = colorEmpty;
 
-        var visible = game.GetVisibleNotes(visibleBehind, visibleAhead);
+        // Only look ahead — no hit tiles shown, active is at the bottom
+        // slot 0 = top (furthest upcoming), slot tilesPerColumn-1 = bottom (active)
+        int remaining = game.SequenceLength - game.CurrentNote;
+        int notesToShow = Mathf.Min(tilesPerColumn, remaining);
 
-        // Slot 0 = top of column (farthest from player), slot N-1 = bottom (closest)
-        // Oldest notes go at top, active at second-from-bottom, upcoming fill below active
-        int slotForNote(int listIndex) => tilesPerColumn - 1 - (visible.Count - 1 - listIndex);
-
-        for (int i = 0; i < visible.Count; i++)
+        for (int i = 0; i < notesToShow; i++)
         {
-            var (noteIndex, col, state) = visible[i];
-            int slot = slotForNote(i);
-            if (slot < 0 || slot >= tilesPerColumn) continue;
+            int noteIndex = game.CurrentNote + i;
+            int col = game.GetNoteColumn(noteIndex);
 
-            Color tileColor = state switch
-            {
-                NoteState.Active => colorActive,
-                NoteState.Hit => colorHit,
-                NoteState.Upcoming => colorUpcoming,
-                _ => colorEmpty
-            };
+            // i=0 is active (bottom slot), i=1 is next above it, etc.
+            int slot = (tilesPerColumn - 1) - i;
 
+            Color tileColor = i == 0 ? colorActive : colorUpcoming;
             _tiles[col][slot].color = tileColor;
         }
     }
