@@ -1,0 +1,1 @@
+public enum NoteState { Upcoming, Active, Hit }
