@@ -5,7 +5,6 @@ public class HammerScriptHandler : MonoBehaviour
 {
     public MusicBox musicBox;
     public GameObject noteBoxHammer;
-    private GameObject foundObject;
     Rigidbody2D boxBody;
     TargetJoint2D targetJoint;
     Vector3 offset;
@@ -26,30 +25,36 @@ public class HammerScriptHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(Input.GetMouseButtonDown(0));
         Vector3 mousePosition = Input.mousePosition;
 
         if (Input.GetMouseButtonDown(0))
         {
+            //TODO: NEED TO FIGURE OUT HOW TO DO MOUSE DRAG
             Collider2D targetObject = Physics2D.OverlapPoint(mousePosition);
 
             if (targetObject)
             {
-                foundObject = transform.Find("NoteBoxHammer").gameObject;
+                targetObject.GameObject().GetComponent<TargetJoint2D>().anchor = new Vector2(mousePosition.x, mousePosition.y);
                 //foundObject.
                 //Physics2D.OverlapPoint(mousePosition);
                 //set the anchor to current mouse
                  //= new Vector2 (mousePosition.x, mousePosition.y);
                 
                 //Constantly update target position to mouse position
-                while (Input.GetMouseButtonDown(0)) {                   
-                    targetJoint.target = Input.mousePosition;
-                    targetObject.GetComponent<TargetJoint2D>().enabled = true;
+                while (Input.GetMouseButtonDown(0) != true) {
+                    targetObject.GameObject().GetComponent<TargetJoint2D>().target = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                    targetObject.GameObject().GetComponent<TargetJoint2D>().enabled = true;
 
                 }
-                targetObject.GetComponent<TargetJoint2D>().enabled = false;
-                
+                targetObject.GameObject().GetComponent<TargetJoint2D>().enabled = false;
+
             }
         }
 
+    }
+    private void FixedUpdate()
+    {
+        Debug.Log(Input.GetMouseButtonDown(0));
     }
 }

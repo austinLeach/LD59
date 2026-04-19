@@ -153,6 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa530e39b870fa47b699bf41289b6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HammerMusicNotes
+  thisTargetJoint: {fileID: 0}
+  anchor: {x: 0, y: 0}
+  Target: {x: 0, y: 0}
   damageValue: 1
   done: 0
 --- !u!50 &-1932056988876980615
@@ -189,16 +192,16 @@ TargetJoint2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966651501126751529}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
+  m_BreakForce: 500
   m_BreakTorque: Infinity
   m_BreakAction: 2
   m_Anchor: {x: 0, y: 0}
   m_Target: {x: 0, y: 0}
-  m_AutoConfigureTarget: 1
+  m_AutoConfigureTarget: 0
   m_MaxForce: 500
   m_DampingRatio: 1
   m_Frequency: 5
