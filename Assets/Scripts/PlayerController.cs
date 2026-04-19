@@ -17,12 +17,16 @@ public class PlayerController : MonoBehaviour
     private PickupBox carriedBox = null;
     private Rigidbody2D rb;
     private BoxCollider2D bc;
+    private Animator _animator;
+    private SpriteRenderer _sr;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>(); 
         bc = GetComponent<BoxCollider2D>();
         bc.isTrigger = true;
+        _animator = GetComponent<Animator>();
+        _sr = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -30,8 +34,7 @@ public class PlayerController : MonoBehaviour
         HandlePickup();
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-<<<<<<< Updated upstream
-=======
+
         bool isMoving = horizontal != 0 || vertical != 0;
         _animator.SetBool("isMoving", isMoving);
 
@@ -61,7 +64,7 @@ public class PlayerController : MonoBehaviour
             
 
         
->>>>>>> Stashed changes
+
     }
 
     private void FixedUpdate()

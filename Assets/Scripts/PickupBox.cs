@@ -44,4 +44,9 @@ public class PickupBox : MonoBehaviour
         transform.SetParent(stationTransform);
         transform.localPosition = boxStationOffset;
     }
+
+    public void UpdateDirection()
+    {
+        transform.localPosition = boxPlayerOffset;
+    }
 }
