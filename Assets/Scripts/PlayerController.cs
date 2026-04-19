@@ -16,13 +16,20 @@ public class PlayerController : MonoBehaviour
     private Minigame1Controller nearbyMinigame = null;
     private PickupBox carriedBox = null;
     private Rigidbody2D rb;
-    private BoxCollider2D bc;
+    //private BoxCollider2D bc;
+    private CircleCollider2D bc;
+
+    private Animator _animator;
+    private SpriteRenderer _sr;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>(); 
-        bc = GetComponent<BoxCollider2D>();
+        //bc = GetComponent<BoxCollider2D>();
+        bc = GetComponent<CircleCollider2D>();
         bc.isTrigger = true;
+        _animator = GetComponent<Animator>();
+        _sr = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -30,6 +37,32 @@ public class PlayerController : MonoBehaviour
         HandlePickup();
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
+        bool isMoving = horizontal != 0 || vertical != 0;
+        _animator.SetBool("isMoving", isMoving);
+
+        // Flip sprite based on horizontal direction
+        if (horizontal != 0)
+        {
+            _sr.flipX = horizontal < 0;
+            if(horizontal < 0)
+            {
+                if(carriedBox != null)
+                {
+                    carriedBox.boxPlayerOffset.x = (Math.Abs(carriedBox.boxPlayerOffset.x) * -1);
+                    carriedBox.putDownOffset.x = (Math.Abs(carriedBox.putDownOffset.x) * -1);
+                    carriedBox.UpdateDirection();
+                }
+            }
+            else if(horizontal > 0)
+            {
+                carriedBox.boxPlayerOffset.x = (Math.Abs(carriedBox.boxPlayerOffset.x));
+                carriedBox.putDownOffset.x = (Math.Abs(carriedBox.putDownOffset.x));
+                carriedBox.UpdateDirection();
+            }
+        }
+            
+
+        
     }
 
     private void FixedUpdate()

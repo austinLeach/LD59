@@ -111,7 +111,7 @@ public class PianoMinigameUI : MonoBehaviour
 
     private void StartGame()
     {
-        resultBar.SetActive(false);
+        resultBar.SetActive(true);
         game.StartGame();
     }
 
