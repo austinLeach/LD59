@@ -1,48 +1,57 @@
 using UnityEngine;
 using System;
 
-public class PlayerController : MonoBehaviour
+public class MicGamePlayerController : MonoBehaviour
 {
     //movement
     Vector2 direction;
     float horizontal;
     float vertical;
 
-    public float pickupRange = 1.5f;
-    public KeyCode pickupKey = KeyCode.E;
-    float lastPickupTime = 0f;
-    public float pickupCooldown = 0.2f;
+    //public float pickupRange = 1.5f;
+    //public KeyCode pickupKey = KeyCode.E;
+    //float lastPickupTime = 0f;
+    //public float pickupCooldown = 0.2f;
 
-    private Minigame1Controller nearbyMinigame = null;
-    private PickupBox carriedBox = null;
+    //private Minigame1Controller nearbyMinigame = null;
+    //private PickupBox carriedBox = null;
     private Rigidbody2D rb;
-    private BoxCollider2D bc;
+    //private BoxCollider2D bc;
+    private CircleCollider2D bc;
+
     private Animator _animator;
-    private SpriteRenderer _sr;
+    //private SpriteRenderer _sr;
+    private RectTransform _rt;
+    private Vector3 _originalScale;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>(); 
-        bc = GetComponent<BoxCollider2D>();
+        //bc = GetComponent<BoxCollider2D>();
+        bc = GetComponent<CircleCollider2D>();
         bc.isTrigger = true;
         _animator = GetComponent<Animator>();
-        _sr = GetComponent<SpriteRenderer>();
+        //_sr = GetComponent<SpriteRenderer>();
+        _rt = GetComponent<RectTransform>();
+        _originalScale = _rt.localScale;
     }
 
     private void Update()
     {
-        HandlePickup();
+        //HandlePickup();
         horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
-
+        //vertical = Input.GetAxis("Vertical");
         bool isMoving = horizontal != 0 || vertical != 0;
         _animator.SetBool("isMoving", isMoving);
 
         // Flip sprite based on horizontal direction
         if (horizontal != 0)
         {
-            _sr.flipX = horizontal < 0;
-            if(horizontal < 0)
+            //_sr.flipX = horizontal < 0;
+            Vector3 scale = _originalScale;
+            scale.x = horizontal < 0 ? -_originalScale.x : _originalScale.x;
+            _rt.localScale = scale;
+            /*if(horizontal < 0)
             {
                 if(carriedBox != null)
                 {
@@ -53,39 +62,37 @@ public class PlayerController : MonoBehaviour
             }
             else if(horizontal > 0)
             {
-                if(carriedBox != null)
-                {
-                    carriedBox.boxPlayerOffset.x = (Math.Abs(carriedBox.boxPlayerOffset.x));
-                    carriedBox.putDownOffset.x = (Math.Abs(carriedBox.putDownOffset.x));
-                    carriedBox.UpdateDirection();
-                }
-            }
+                carriedBox.boxPlayerOffset.x = (Math.Abs(carriedBox.boxPlayerOffset.x));
+                carriedBox.putDownOffset.x = (Math.Abs(carriedBox.putDownOffset.x));
+                carriedBox.UpdateDirection();
+            }*/
         }
             
 
         
-
     }
 
     private void FixedUpdate()
     {
         Vector2 position = rb.position;
-        position.x = position.x + 10f * horizontal * Time.deltaTime;
+        position.x = position.x + 350f * horizontal * Time.deltaTime;
         position.y = position.y + 10f * vertical * Time.deltaTime;
         rb.MovePosition(position);
+        bool isMoving = horizontal != 0 || vertical != 0;
+        _animator.SetBool("isMoving", isMoving);
     }
 
     private void HandlePickup()
     {
-        if (!Input.GetKeyDown(pickupKey)) return;
+        //if (!Input.GetKeyDown(pickupKey)) return;
 
-        if (Time.time - lastPickupTime < pickupCooldown) return;
-        lastPickupTime = Time.time;
+        //if (Time.time - lastPickupTime < pickupCooldown) return;
+        //lastPickupTime = Time.time;
 
-        PickupBox nearbyBox = FindNearbyBox();
+        //PickupBox nearbyBox = FindNearbyBox();
 
 
-        if (Input.GetKeyDown(pickupKey))
+        /*if (Input.GetKeyDown(pickupKey))
         {
 
 
@@ -122,12 +129,12 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("No action found");
             }
-        }
+        }*/
     }
 
-    PickupBox FindNearbyBox()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, pickupRange);
+    //PickupBox FindNearbyBox()
+    //{
+        /*Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, pickupRange);
 
         if(hits.Length > 0)
         {
@@ -152,30 +159,35 @@ public class PlayerController : MonoBehaviour
             }
         }
         Debug.Log("returning null");
-        return null;
-    }
+        return null;*/
+    //}
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, pickupRange);
+        /*Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, pickupRange);*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Minigame1Controller minigame = collision.GetComponent<Minigame1Controller>();
+        /*Minigame1Controller minigame = collision.GetComponent<Minigame1Controller>();
         if(minigame != null)
         {
             nearbyMinigame = minigame;
+        }*/
+        MicrophoneDropScript microphone = collision.GetComponent<MicrophoneDropScript>();
+        if(microphone != null)
+        {
+
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Minigame1Controller minigame = collision.GetComponent<Minigame1Controller>();
+        /*Minigame1Controller minigame = collision.GetComponent<Minigame1Controller>();
         if(minigame != null && minigame == nearbyMinigame)
         {
             nearbyMinigame = null;
-        }
+        }*/
     }
 }
