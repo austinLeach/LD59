@@ -4,7 +4,7 @@ using UnityEngine;
 public class HammerMusicNotes : MonoBehaviour
 {
     SpriteRenderer SpriteRenderer;
-    private TargetJoint2D thisObject;
+    public TargetJoint2D thisTargetJoint;
     public int damageValue;
     public bool done = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -13,7 +13,7 @@ public class HammerMusicNotes : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
         damageValue = UnityEngine.Random.Range(0, 3);
         changeNoteColor();
-        thisObject = GetComponent<TargetJoint2D>();
+        thisTargetJoint = GetComponent<TargetJoint2D>();
     }
 
     // Update is called once per frame

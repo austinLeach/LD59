@@ -35,10 +35,10 @@ public class HammerScriptHandler : MonoBehaviour
             if (targetObject)
             {
                 foundObject = transform.Find("NoteBoxHammer").gameObject;
-                foundObject.
-                Physics2D.OverlapPoint(mousePosition);
+                //foundObject.
+                //Physics2D.OverlapPoint(mousePosition);
                 //set the anchor to current mouse
-                 = new Vector2 (mousePosition.x, mousePosition.y);
+                 //= new Vector2 (mousePosition.x, mousePosition.y);
                 
                 //Constantly update target position to mouse position
                 while (Input.GetMouseButtonDown(0)) {                   
