@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d4834eeca78cb5b44a6c4fade04844f3
+guid: cdb8ea59208bc4d4c8764ca9aa3988cd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9011211858888893642
-    second: gamescene_0
+      213: 7785119131276121093
+    second: forgeminigamescene_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gamescene_0
+      name: forgeminigamescene_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2560
-        height: 1440
+        width: 1600
+        height: 1300
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 63bd32bce8eb1f280800000000000000
-      internalID: -9011211858888893642
+      spriteID: 5049fc14a9c4a0c60800000000000000
+      internalID: 7785119131276121093
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      gamescene_0: -9011211858888893642
+      forgeminigamescene_0: 7785119131276121093
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
