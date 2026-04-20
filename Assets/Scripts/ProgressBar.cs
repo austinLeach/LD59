@@ -8,7 +8,7 @@ public class ProgressBar : MonoBehaviour
 
     private void Awake()
     {
-        Show();
+        Hide();
     }
 
     public void Show() => progressBarRoot.SetActive(true);

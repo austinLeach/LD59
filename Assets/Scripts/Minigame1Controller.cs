@@ -8,7 +8,12 @@ public class Minigame1Controller : MonoBehaviour
     public PickupBox boxInRange = null;
     public bool hasBoxDeposited = false;
 
-    [SerializeField] private float progressDuration = 3f; // adjust per minigame type
+    [SerializeField] private float pianoProgressDuration = 15f; // adjust per minigame type
+    [SerializeField] private float guitarProgressDuration = 15f;
+    [SerializeField] private float vocalsProgressDuration = 15f;
+    [SerializeField] private float drumsProgressDuration = 15f;
+    [SerializeField] private float progressDuration = 15f;
+
     private float progressTimer = 0f;
     private bool isProgressing = false;
     private ProgressBar activeProgressBar;
@@ -47,13 +52,29 @@ public class Minigame1Controller : MonoBehaviour
 
     private void Update()
     {
-        if (!isProgressing || activeProgressBar == null) return;
+        switch(minigameType)
+        {
+            case MiniGameType.Piano:
+                progressDuration = pianoProgressDuration;
+                break;
+            case MiniGameType.Guitar:
+                progressDuration = guitarProgressDuration;
+                break;
+            case MiniGameType.Vocals:
+                progressDuration = vocalsProgressDuration;
+                break;
+            case MiniGameType.Drums:
+                progressDuration = drumsProgressDuration;
+                break;
+        }
 
-        progressTimer += Time.deltaTime;
-        float progress = progressTimer / progressDuration;
-        activeProgressBar.SetProgress(progress);
+        if (depositedBox == null || !depositedBox.isProgressing) return;
 
-        if (progressTimer >= progressDuration)
+        depositedBox.progress += Time.deltaTime / progressDuration;
+        depositedBox.progress = Mathf.Clamp01(depositedBox.progress);
+        activeProgressBar?.SetProgress(depositedBox.progress);
+
+        if (depositedBox.progress >= 1f)
             StopProgress();
     }
 
@@ -86,19 +107,24 @@ public class Minigame1Controller : MonoBehaviour
 
     public void StartProgress(PickupBox box)
     {
-        progressTimer = 0f;
-        isProgressing = true;
+        depositedBox = box;
         activeProgressBar = box.GetComponent<ProgressBar>();
         if (activeProgressBar != null)
+        {
             activeProgressBar.Show();
+            activeProgressBar.SetProgress(box.progress); // resume from stored progress
+        }
+        box.isProgressing = true;
     }
 
     public void StopProgress()
     {
-        isProgressing = false;
+        if (depositedBox != null)
+            depositedBox.isProgressing = false;
         if (activeProgressBar != null)
-            activeProgressBar.Hide();
+            activeProgressBar.Show();   //testing, flip to hide
         activeProgressBar = null;
+        depositedBox = null;
     }
 
     private void LaunchMinigame()
@@ -110,6 +136,10 @@ public class Minigame1Controller : MonoBehaviour
         else if (minigameType == MiniGameType.Vocals)
         {
             SpawnMinigame(vocalsMinigamePrefab);
+        }
+        else if (minigameType == MiniGameType.Guitar)
+        {
+            SpawnMinigame(guitarMinigamePrefab);
         }
             
         // add more types here:
@@ -140,6 +170,14 @@ public class Minigame1Controller : MonoBehaviour
             MicrophoneDropScript mic = activeMinigame.GetComponentInChildren<MicrophoneDropScript>();
             if (mic != null)
                 mic.OnMicLanded += HandleMinigameFinished;
+        }
+        else if(minigameType == MiniGameType.Guitar)
+        {
+            GuitarMinigameSequencer ui = activeMinigame.GetComponent<GuitarMinigameSequencer>();
+            if(ui != null)
+            {
+                ui.OnMinigameFinished += HandleMinigameFinished;
+            }
         }
         
     }

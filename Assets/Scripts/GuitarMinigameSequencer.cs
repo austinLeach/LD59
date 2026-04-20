@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-
+using System;
 public class GuitarMinigameSequencer : MonoBehaviour
 {
     [Header("Step GameObjects (enabled/disabled per step)")]
@@ -14,6 +14,8 @@ public class GuitarMinigameSequencer : MonoBehaviour
     [SerializeField] private string stringInstruction   = "Drag a new string onto the guitar!";
     [SerializeField] private string spinInstruction     = "Turn the tuning peg 3 times!";
     [SerializeField] private string completeInstruction = "All done!";
+
+    public event Action<bool> OnMinigameFinished;
 
     private void Start()
     {
@@ -35,7 +37,9 @@ public class GuitarMinigameSequencer : MonoBehaviour
     // Called by SpinUI.onSuccess
     public void OnSpinComplete()
     {
+        
         SetInstruction(completeInstruction);
+        OnMinigameFinished?.Invoke(true);
     }
 
     public void ResetMinigame()
