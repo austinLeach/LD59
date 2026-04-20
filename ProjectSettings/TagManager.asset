@@ -9,6 +9,7 @@ TagManager:
   - lever
   - forge
   - floor
+  - player
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - OnTop
   - Water
   - UI
-  - boundry
+  - 
   - 
   - 
   - 

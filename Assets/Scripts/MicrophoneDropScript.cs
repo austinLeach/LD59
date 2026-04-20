@@ -14,17 +14,15 @@ public class MicrophoneDropScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        MicGamePlayerController player = collision.GetComponent<MicGamePlayerController>();
-        if (player != null)
+        Debug.Log("checking for floor");
+        if (collision.CompareTag("floor"))
+        {
+            Debug.Log("found floor");
+            OnMicLanded?.Invoke(false);
+        }
+        else if (collision.CompareTag("player"))
         {
             OnMicLanded?.Invoke(true);
         }
-
-        if (collision.gameObject.CompareTag("floor"))
-        {
-            OnMicLanded?.Invoke(false);
-        }
-
-
     }
 }
