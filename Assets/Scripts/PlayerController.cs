@@ -21,12 +21,15 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer _sr;
     private AudioSource audioSource;
     [SerializeField] private AudioClip rejectSound;
+    [SerializeField] private LayerMask boundaryLayers;
+    private Vector2 baseColliderOffset;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>(); 
         bc = GetComponent<BoxCollider2D>();
         bc.isTrigger = true;
+        baseColliderOffset = bc.offset;
         _animator = GetComponent<Animator>();
         _sr = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
@@ -45,6 +48,7 @@ public class PlayerController : MonoBehaviour
         if (horizontal != 0)
         {
             _sr.flipX = horizontal < 0;
+            bc.offset = new Vector2(horizontal < 0 ? -baseColliderOffset.x : baseColliderOffset.x, baseColliderOffset.y);
             if(horizontal < 0)
             {
                 if(carriedBox != null)
@@ -73,8 +77,17 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector2 position = rb.position;
-        position.x = position.x + 10f * horizontal * Time.deltaTime;
-        position.y = position.y + 10f * vertical * Time.deltaTime;
+        Vector2 size = bc.size * (Vector2)transform.lossyScale;
+        Vector2 offset = (Vector2)transform.TransformPoint(bc.offset) - rb.position;
+
+        Vector2 nextX = new Vector2(position.x + 10f * horizontal * Time.deltaTime, position.y);
+        if (boundaryLayers == 0 || Physics2D.OverlapBox(nextX + offset, size * 0.95f, 0f, boundaryLayers) == null)
+            position.x = nextX.x;
+
+        Vector2 nextY = new Vector2(position.x, position.y + 10f * vertical * Time.deltaTime);
+        if (boundaryLayers == 0 || Physics2D.OverlapBox(nextY + offset, size * 0.95f, 0f, boundaryLayers) == null)
+            position.y = nextY.y;
+
         rb.MovePosition(position);
     }
 

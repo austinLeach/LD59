@@ -469,6 +469,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: guitar minigame
       objectReference: {fileID: 0}
+    - target: {fileID: 4766210145620705764, guid: 91cf657a1c95f1a4588794ef8a64468e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7169040661326321502, guid: 91cf657a1c95f1a4588794ef8a64468e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 382.9948

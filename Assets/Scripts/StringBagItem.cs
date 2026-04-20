@@ -9,6 +9,7 @@ public class StringBagItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField] private GameObject[] elementsToActivate;
     [SerializeField] public UnityEvent onSuccess;
     [SerializeField] private Canvas targetCanvas;
+    [SerializeField] private Camera worldCamera;
     [SerializeField] private Color ropeColor = Color.white;
     [SerializeField] private float ropeLineWidth = 8f;
 
@@ -17,8 +18,9 @@ public class StringBagItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private Vector2 PointerToWorld(Vector2 screenPos)
     {
-        float dist = Mathf.Abs(Camera.main.transform.position.z);
-        return Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, dist));
+        Camera cam = worldCamera != null ? worldCamera : Camera.main;
+        float dist = Mathf.Abs(cam.transform.position.z);
+        return cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, dist));
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -40,7 +42,7 @@ public class StringBagItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         Camera cam = targetCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : targetCanvas.worldCamera;
 
         activeRope = Instantiate(ropePrefab);
-        activeRope.Build(PointerToWorld(eventData.position), activeRopeLine, targetCanvas.GetComponent<RectTransform>(), cam);
+        activeRope.Build(PointerToWorld(eventData.position), activeRopeLine, targetCanvas.GetComponent<RectTransform>(), cam, worldCamera);
     }
 
     public void OnDrag(PointerEventData eventData)

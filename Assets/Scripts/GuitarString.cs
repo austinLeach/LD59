@@ -12,12 +12,14 @@ public class GuitarString : MonoBehaviour
     private UILineRenderer uiLine;
     private RectTransform canvasRect;
     private Camera uiCamera;
+    private Camera physicsCamera;
 
-    public void Build(Vector2 worldPos, UILineRenderer line, RectTransform canvas, Camera cam)
+    public void Build(Vector2 worldPos, UILineRenderer line, RectTransform canvas, Camera cam, Camera physicsCam = null)
     {
         uiLine = line;
         canvasRect = canvas;
         uiCamera = cam;
+        physicsCamera = physicsCam != null ? physicsCam : Camera.main;
 
         // Kinematic anchor — follows the pointer
         GameObject anchorGO = new GameObject("_Anchor");
@@ -78,7 +80,7 @@ public class GuitarString : MonoBehaviour
 
     private Vector2 WorldToCanvasLocal(Vector2 worldPos)
     {
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        Vector2 screenPos = physicsCamera.WorldToScreenPoint(worldPos);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, uiCamera, out Vector2 localPos);
         return localPos;
     }
