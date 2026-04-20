@@ -610,6 +610,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PianoMinigameStation
       objectReference: {fileID: 0}
+    - target: {fileID: 5914142807348268149, guid: 48cd23243b4a7364b9cae8371de4e859, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8682949895035288813, guid: 48cd23243b4a7364b9cae8371de4e859, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -765,6 +769,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GuitarMinigameStation
       objectReference: {fileID: 0}
+    - target: {fileID: 3951840817623875758, guid: 82c64afdf25dd0344bdef4e8b858eee6, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 9103376273585063465, guid: 82c64afdf25dd0344bdef4e8b858eee6, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -891,6 +899,63 @@ Transform:
   - {fileID: 643472414}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1566250708
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5534010367981464854, guid: e98b61f163013214abc90704a3f602e8, type: 3}
+      propertyPath: m_Name
+      value: VocalsMusicBox 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: e98b61f163013214abc90704a3f602e8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.37299
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: e98b61f163013214abc90704a3f602e8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.89747
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: e98b61f163013214abc90704a3f602e8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: e98b61f163013214abc90704a3f602e8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: e98b61f163013214abc90704a3f602e8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: e98b61f163013214abc90704a3f602e8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: e98b61f163013214abc90704a3f602e8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: e98b61f163013214abc90704a3f602e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: e98b61f163013214abc90704a3f602e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: e98b61f163013214abc90704a3f602e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e98b61f163013214abc90704a3f602e8, type: 3}
 --- !u!1 &1809218529
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,6 +1035,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1892034951
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5534010367981464854, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
+      propertyPath: m_Name
+      value: PianoMusicBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909659437134617873, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
 --- !u!1001 &1980770025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1030,6 +1152,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VocalsMinigameStation
       objectReference: {fileID: 0}
+    - target: {fileID: 3951840817623875758, guid: cb65baaddd3877a49b2bbd495a4df605, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 9103376273585063465, guid: cb65baaddd3877a49b2bbd495a4df605, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -1049,3 +1175,5 @@ SceneRoots:
   - {fileID: 1112247570}
   - {fileID: 639451492}
   - {fileID: 1405350696}
+  - {fileID: 1892034951}
+  - {fileID: 1566250708}

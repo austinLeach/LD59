@@ -13,13 +13,21 @@ public class HammerScriptHandler : MonoBehaviour
     private bool dragging;
     private bool anchorSet = false;
     private string tagName = "Box";
+    [SerializeField] private string colliderLayerToDisable = "thingamadoob";
+    private Collider2D[] disabledColliders;
+    [SerializeField] private GameObject objectToPosition;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // if (objectToPosition != null)
+        // {
+        //     objectToPosition.transform.position = new Vector3(1.41f, 0.32f, objectToPosition.transform.position.z);
+        // }
         //Load the inserted box and spawn notes
         if (musicBox.boxType == 1)
         {
+            DisableInterfering();
             for (int i = 0; i < musicBox.noteCount; i++)
             {
                 Instantiate(noteBoxHammer, new Vector3(-5 + (i * 0.4f) , i - 1f, i * 2),Quaternion.identity);
@@ -27,6 +35,45 @@ public class HammerScriptHandler : MonoBehaviour
         }
 
         FindFirstObjectByType<HammerCompletionZone>()?.StartMinigame();
+        
+    }
+
+    private void DisableInterfering()
+    {
+        int layer = LayerMask.NameToLayer(colliderLayerToDisable);
+        if (layer == -1) return;
+        int buttonLayer = LayerMask.NameToLayer("button");
+        disabledColliders = FindObjectsByType<Collider2D>(FindObjectsSortMode.None);
+        System.Collections.Generic.List<Collider2D> disabled = new System.Collections.Generic.List<Collider2D>();
+        foreach (Collider2D col in disabledColliders)
+        {
+            if (col.gameObject.layer == layer && col.gameObject.layer != buttonLayer)
+            {
+                col.enabled = false;
+                disabled.Add(col);
+            }
+        }
+        disabledColliders = disabled.ToArray();
+    }
+
+    public void EnableInterfering()
+    {
+        Debug.Log("[HammerScriptHandler] EnableInterfering called.");
+        if (disabledColliders != null)
+        {
+            foreach (Collider2D col in disabledColliders)
+                if (col != null) col.enabled = true;
+            disabledColliders = null;
+        }
+        else
+        {
+            // Fallback: re-find by layer in case the array was lost
+            int layer = LayerMask.NameToLayer(colliderLayerToDisable);
+            if (layer == -1) { Debug.LogWarning("[HammerScriptHandler] Layer not found: " + colliderLayerToDisable); return; }
+            foreach (Collider2D col in FindObjectsByType<Collider2D>(FindObjectsSortMode.None))
+                if (col.gameObject.layer == layer) col.enabled = true;
+            Debug.Log("[HammerScriptHandler] Re-enabled via fallback.");
+        }
     }
 
     // Update is called once per frame
@@ -43,29 +90,31 @@ public class HammerScriptHandler : MonoBehaviour
             int layerObject = 3;
             if (anchorSet == false)
             {
-                
-                hitObj = Physics2D.Raycast(ray, ray, layerObject);
-            }
-            if (hitObj.collider != null && hitObj.collider.gameObject.CompareTag("Box"))
-            {
-                //Debug.Log(hitObj.collider.gameObject.GetComponent<TargetJoint2D>().anchor);
-                //set anchor point
-                if (anchorSet == false)
+                ContactFilter2D filter = new ContactFilter2D();
+                filter.useTriggers = false;
+                filter.useLayerMask = false;
+                Collider2D[] results = new Collider2D[5];
+                int count = Physics2D.OverlapPoint(ray, filter, results);
+                hitObj = default;
+                for (int i = 0; i < count; i++)
                 {
-                    targetJoint = hitObj.collider.gameObject.GetComponent<TargetJoint2D>();
-                    hitObj.collider.gameObject.GetComponent<TargetJoint2D>().anchor = ray.normalized * 0.1f;
-                    hitObj.collider.gameObject.GetComponent<TargetJoint2D>().target = new Vector2(ray.x, ray.y);
-                    anchorSet = true;
+                    if (results[i].CompareTag("Box"))
+                    {
+                        hitObj = new RaycastHit2D();
+                        // store via a workaround — use the collider directly
+                        results[i].gameObject.GetComponent<TargetJoint2D>().anchor = ray.normalized * 0.1f;
+                        results[i].gameObject.GetComponent<TargetJoint2D>().target = ray;
+                        targetJoint = results[i].gameObject.GetComponent<TargetJoint2D>();
+                        anchorSet = true;
+                        break;
+                    }
                 }
-                //Constantly update target position to mouse position
-
-
             }
 
             //Constantly move the box to cursor
-            if (hitObj.collider.gameObject.CompareTag("Box"))
+            if (anchorSet && targetJoint != null)
             {
-                hitObj.collider.gameObject.GetComponent<TargetJoint2D>().target = new Vector2(ray.x, ray.y);
+                targetJoint.target = ray;
             }
         }
         else

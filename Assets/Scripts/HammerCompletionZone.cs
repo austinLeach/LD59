@@ -12,7 +12,7 @@ public class HammerCompletionZone : MonoBehaviour
     private HammerMusicNotes[] requiredNotes;
     private HashSet<HammerMusicNotes> notesInZone = new HashSet<HammerMusicNotes>();
     private BoxCollider2D zone;
-    private bool completed = false;
+    public bool completed = false;
     private bool ready = false;
 
     private void Awake()
@@ -72,6 +72,7 @@ public class HammerCompletionZone : MonoBehaviour
         foreach (HammerMusicNotes note in requiredNotes)
             if (note != null) Destroy(note.gameObject);
         if (objectToDestroy != null) Destroy(objectToDestroy);
+        FindFirstObjectByType<HammerScriptHandler>()?.EnableInterfering();
         onAllRepaired.Invoke();
     }
 
