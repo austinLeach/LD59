@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D bc;
     private Animator _animator;
     private SpriteRenderer _sr;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip rejectSound;
 
     private void Start()
     {
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
         bc.isTrigger = true;
         _animator = GetComponent<Animator>();
         _sr = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -92,8 +95,16 @@ public class PlayerController : MonoBehaviour
             if(carriedBox != null && nearbyMinigame != null && !nearbyMinigame.hasBoxDeposited)
             {
                 Debug.Log("Trying to deposit box to minigame");
-                nearbyMinigame.AcceptBox(carriedBox);
-                carriedBox = null;
+                bool result = nearbyMinigame.AcceptBox(carriedBox);
+                if(result)
+                {
+                    carriedBox = null;
+                }
+                else
+                {
+                    audioSource.PlayOneShot(rejectSound);
+                }
+                
                 return;
             }
             else if(carriedBox != null)         //put down box if holding one
@@ -103,7 +114,7 @@ public class PlayerController : MonoBehaviour
                 carriedBox = null;
                 return;
             }
-            else if (nearbyBox != null && nearbyMinigame != null)
+            else if (nearbyBox != null && nearbyMinigame != null && nearbyMinigame.hasBoxDeposited)
             {
                 Debug.Log("Picking up box from minigame");
                 carriedBox = nearbyMinigame.TakeBox();

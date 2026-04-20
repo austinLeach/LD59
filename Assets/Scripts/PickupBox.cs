@@ -2,10 +2,15 @@ using UnityEngine;
 
 public class PickupBox : MonoBehaviour
 {
+    public float progress = 0f;
+    public bool isProgressing = false;
+
     public bool isBeingCarried = false;
     public Vector3 boxPlayerOffset = new Vector3(12, 0.5f, 0);
     public Vector3 boxStationOffset = new Vector3(8, 0.5f, 0);
     public Vector3 putDownOffset = new Vector3(15, 0.75f, 0);
+
+    public MiniGameType minigameType = MiniGameType.Piano;
 
     private Rigidbody2D rb;
 

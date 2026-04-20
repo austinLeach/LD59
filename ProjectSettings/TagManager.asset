@@ -8,6 +8,7 @@ TagManager:
   - minigameStation
   - lever
   - forge
+  - floor
   layers:
   - Default
   - TransparentFX

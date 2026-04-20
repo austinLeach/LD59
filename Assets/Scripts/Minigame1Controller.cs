@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Minigame1Controller : MonoBehaviour
 {
-    public enum MiniGameType { Piano, Guitar, Drums, Vocals}            //add minigame types here
+    //public enum MiniGameType { Piano, Guitar, Drums, Vocals}            //add minigame types here
     public PickupBox boxInRange = null;
     public bool hasBoxDeposited = false;
 
@@ -40,14 +40,20 @@ public class Minigame1Controller : MonoBehaviour
         }
     }
 
-    public void AcceptBox(PickupBox box)
+    public bool AcceptBox(PickupBox box)
     {
+        if(minigameType != box.minigameType)
+        {
+            Debug.Log("Minigame has rejected box");
+            return false;
+        }
         Debug.Log("Minigame has accepted box");
         depositedBox = box;
         hasBoxDeposited = true;
         boxInRange = null;
         box.SnapToStation(transform);
         LaunchMinigame();
+        return true;
     }
 
 
