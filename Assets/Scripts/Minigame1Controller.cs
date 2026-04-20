@@ -8,6 +8,11 @@ public class Minigame1Controller : MonoBehaviour
     public PickupBox boxInRange = null;
     public bool hasBoxDeposited = false;
 
+    [SerializeField] private float progressDuration = 3f; // adjust per minigame type
+    private float progressTimer = 0f;
+    private bool isProgressing = false;
+    private ProgressBar activeProgressBar;
+
     public MiniGameType minigameType =  MiniGameType.Piano;
 
     [Header("Minigame Prefabs")]
@@ -40,6 +45,18 @@ public class Minigame1Controller : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (!isProgressing || activeProgressBar == null) return;
+
+        progressTimer += Time.deltaTime;
+        float progress = progressTimer / progressDuration;
+        activeProgressBar.SetProgress(progress);
+
+        if (progressTimer >= progressDuration)
+            StopProgress();
+    }
+
     public bool AcceptBox(PickupBox box)
     {
         if(minigameType != box.minigameType)
@@ -52,6 +69,7 @@ public class Minigame1Controller : MonoBehaviour
         hasBoxDeposited = true;
         boxInRange = null;
         box.SnapToStation(transform);
+        StartProgress(depositedBox);
         LaunchMinigame();
         return true;
     }
@@ -59,12 +77,29 @@ public class Minigame1Controller : MonoBehaviour
 
     public PickupBox TakeBox()
     {
+        StopProgress();
         PickupBox box = depositedBox;
         depositedBox = null;
         hasBoxDeposited = false;
         return box;
     }
 
+    public void StartProgress(PickupBox box)
+    {
+        progressTimer = 0f;
+        isProgressing = true;
+        activeProgressBar = box.GetComponent<ProgressBar>();
+        if (activeProgressBar != null)
+            activeProgressBar.Show();
+    }
+
+    public void StopProgress()
+    {
+        isProgressing = false;
+        if (activeProgressBar != null)
+            activeProgressBar.Hide();
+        activeProgressBar = null;
+    }
 
     private void LaunchMinigame()
     {
