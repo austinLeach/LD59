@@ -23,6 +23,7 @@ public class MicGamePlayerController : MonoBehaviour
     //private SpriteRenderer _sr;
     private RectTransform _rt;
     private Vector3 _originalScale;
+    public event Action<bool> OnMinigameFinished;
 
     private void Start()
     {

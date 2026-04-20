@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Minigame1Controller : MonoBehaviour
 {
-    public enum MiniGameType { Piano, Guitar, Drums }            //add minigame types here
+    public enum MiniGameType { Piano, Guitar, Drums, Vocals}            //add minigame types here
     public PickupBox boxInRange = null;
     public bool hasBoxDeposited = false;
 
@@ -12,6 +12,9 @@ public class Minigame1Controller : MonoBehaviour
 
     [Header("Minigame Prefabs")]
     [SerializeField] private GameObject pianoMinigamePrefab;   // drag your popup prefab here
+    [SerializeField] private GameObject vocalsMinigamePrefab;
+    [SerializeField] private GameObject guitarMinigamePrefab;
+    [SerializeField] private GameObject drumsMinigamePrefab;
 
     [Header("Spawn Parent (optional)")]
     [SerializeField] private Transform uiParent;               // drag your Canvas here, or leave null
@@ -63,6 +66,10 @@ public class Minigame1Controller : MonoBehaviour
         {
             SpawnMinigame(pianoMinigamePrefab);
         }
+        else if (minigameType == MiniGameType.Vocals)
+        {
+            SpawnMinigame(vocalsMinigamePrefab);
+        }
             
         // add more types here:
         // else if (minigameType == MiniGameType.Guitar)
@@ -81,9 +88,19 @@ public class Minigame1Controller : MonoBehaviour
         activeMinigame = Instantiate(prefab, uiParent);
 
         // Get the UI controller and subscribe to its completion event
-        PianoMinigameUI ui = activeMinigame.GetComponent<PianoMinigameUI>();
-        if (ui != null)
-            ui.OnMinigameFinished += HandleMinigameFinished;
+        if(minigameType == MiniGameType.Piano)
+        {
+            PianoMinigameUI ui = activeMinigame.GetComponent<PianoMinigameUI>();
+            if (ui != null)
+                ui.OnMinigameFinished += HandleMinigameFinished;
+        }
+        else if(minigameType == MiniGameType.Vocals)
+        {
+            MicrophoneDropScript mic = activeMinigame.GetComponentInChildren<MicrophoneDropScript>();
+            if (mic != null)
+                mic.OnMicLanded += HandleMinigameFinished;
+        }
+        
     }
 
     private void HandleMinigameFinished(bool won)
