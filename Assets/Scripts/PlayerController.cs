@@ -114,7 +114,11 @@ public class PlayerController : MonoBehaviour
                 carriedBox = null;
                 return;
             }
-            else if (nearbyBox != null && nearbyMinigame != null && nearbyMinigame.hasBoxDeposited)
+            else if (nearbyMinigame != null && nearbyMinigame.waitingForMinigame == true)
+            {
+                nearbyMinigame.AcceptMinigameInteraction();
+            }
+            else if (carriedBox == null && nearbyMinigame != null && nearbyMinigame.hasBoxDeposited)
             {
                 Debug.Log("Picking up box from minigame");
                 carriedBox = nearbyMinigame.TakeBox();
