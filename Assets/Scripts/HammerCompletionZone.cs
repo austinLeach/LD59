@@ -76,8 +76,9 @@ public class HammerCompletionZone : MonoBehaviour
             if (note != null) Destroy(note.gameObject);
         if (objectToDestroy != null) Destroy(objectToDestroy);
         FindFirstObjectByType<HammerScriptHandler>()?.EnableInterfering();
-        onAllRepaired.Invoke();
         OnMinigameFinished?.Invoke(true);
+        onAllRepaired.Invoke();
+        
     }
 
     public void Reset()

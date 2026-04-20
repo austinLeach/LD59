@@ -21,6 +21,10 @@ public class Minigame1Controller : MonoBehaviour
     [SerializeField] private GameObject guitarMinigamePrefab;
     [SerializeField] private GameObject drumsMinigamePrefab;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip failSound;
+    [SerializeField] private AudioClip winSound;
+
     [Header("Spawn Parent (optional)")]
     [SerializeField] private Transform uiParent;
 
@@ -92,8 +96,7 @@ public class Minigame1Controller : MonoBehaviour
     {
         waitingForMinigame = true;
         depositedBox.isProgressing = false;
-        // Player now needs to walk over and press E — 
-        // AcceptMinigameInteraction() is called from your existing E press logic
+        activeProgressBar?.SetPaused(true);
     }
 
     // Call this from your player interaction (E key) when near the station
@@ -124,7 +127,11 @@ public class Minigame1Controller : MonoBehaviour
 
     public PickupBox TakeBox()
     {
-        StopProgress();
+        // Stop without showing complete
+        if (depositedBox != null)
+            depositedBox.isProgressing = false;
+        activeProgressBar = null;
+
         PickupBox box = depositedBox;
         depositedBox = null;
         hasBoxDeposited = false;
@@ -140,17 +147,28 @@ public class Minigame1Controller : MonoBehaviour
         {
             activeProgressBar.Show();
             activeProgressBar.SetProgress(box.progress);
+            activeProgressBar.SetPaused(false); // make sure exclamation is hidden on deposit
         }
         box.isProgressing = true;
     }
 
     public void StopProgress()
     {
+        Debug.Log("StopProgress called");
         if (depositedBox != null)
             depositedBox.isProgressing = false;
+
+        ProgressBar bar = activeProgressBar;
+        Debug.Log("activeProgressBar is: " + (bar == null ? "NULL" : "valid"));
         activeProgressBar = null;
         depositedBox = null;
+
+        bar?.ShowComplete();
     }
+
+
+
+
 
     private void LaunchMinigame()
     {
@@ -192,7 +210,8 @@ public class Minigame1Controller : MonoBehaviour
         }
         else if (minigameType == MiniGameType.Drums)
         {
-            // wire up drums here when ready
+            HammerCompletionZone ui = activeMinigame.GetComponentInChildren<HammerCompletionZone>();
+            if (ui != null) ui.OnMinigameFinished += HandleMinigameFinished;
         }
     }
 
@@ -200,18 +219,33 @@ public class Minigame1Controller : MonoBehaviour
     {
         Debug.Log(won ? "Minigame won!" : "Minigame lost.");
 
+        if(won)
+        {
+            audioSource.PlayOneShot(winSound, 0.2f);
+        }
+        else
+        {
+            audioSource.PlayOneShot(failSound);
+        }
+
         if (activeMinigame != null)
         {
             Destroy(activeMinigame);
             activeMinigame = null;
         }
 
-        // Resume progress regardless of win/lose — 
-        // adjust this if losing should reset progress
+        if(!won)
+        {
+            LaunchMinigame();
+            return;
+        }
+
         waitingForMinigame = false;
+        activeProgressBar?.SetPaused(false);  // hide exclamation when resuming
         if (depositedBox != null)
         {
             depositedBox.isProgressing = true;
         }
+
     }
 }
