@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public float pickupCooldown = 0.2f;
 
     private Minigame1Controller nearbyMinigame = null;
+    private SubmissionBox nearbySubmissionBox = null;
     private PickupBox carriedBox = null;
     private Rigidbody2D rb;
     private BoxCollider2D bc;
@@ -112,8 +113,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(pickupKey))
         {
 
+            if(carriedBox != null && nearbySubmissionBox != null && carriedBox.progress == 1f)
+            {
+                bool success = nearbySubmissionBox.TurnInBox(carriedBox);
 
-            if(carriedBox != null && nearbyMinigame != null && !nearbyMinigame.hasBoxDeposited)
+                if(success)
+                {
+                    carriedBox = null;
+                }
+                else
+                {
+                    audioSource.PlayOneShot(rejectSound);
+                }
+            }
+            else if(carriedBox != null && nearbyMinigame != null && !nearbyMinigame.hasBoxDeposited)
             {
                 Debug.Log("Trying to deposit box to minigame");
                 bool result = nearbyMinigame.AcceptBox(carriedBox);
@@ -203,6 +216,12 @@ public class PlayerController : MonoBehaviour
         if(minigame != null)
         {
             nearbyMinigame = minigame;
+        }
+        
+        SubmissionBox submissionBox = collision.GetComponent<SubmissionBox>();
+        if(submissionBox != null)
+        {
+            nearbySubmissionBox = submissionBox;
         }
     }
 
