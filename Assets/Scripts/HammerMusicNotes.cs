@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HammerMusicNotes : MonoBehaviour
@@ -33,15 +32,6 @@ public class HammerMusicNotes : MonoBehaviour
         Debug.Log("Forge On/Off: " + forge.gameObject.GetComponent<ForgeController>().onOff);
         if (forge.GetComponent<ForgeController>().onOff == true && waiting == false)
         {
-            Debug.Log("We are so CLOSE");
-            if (Physics2D.IsTouching(boxCollider, secondBox))
-            {
-                Debug.Log("We are touching!");
-                repairDamage();
-                waiting = true;
-                timer = 15f;
-                GlobalVariables.Timer(ref waiting,ref timer);
-            }
         }
         dragging = Input.GetMouseButton(0);
             //onMouse click move and drag
@@ -59,7 +49,7 @@ public class HammerMusicNotes : MonoBehaviour
         Debug.Log("I am REPAIRING!");
         if(damageValue != 0)
         {
-            damageValue = damageValue--;
+            damageValue--;
             changeNoteColor();
         }
         else
@@ -74,21 +64,34 @@ public class HammerMusicNotes : MonoBehaviour
         switch (damageValue)
         {
             case 0:
+                Debug.Log("Changing to green");
                 SpriteRenderer.sprite = boxArray[0];
                 SpriteRenderer.color = Color.green;
                 break;
             case 1:
+                Debug.Log("Changing to yellow");
                 SpriteRenderer.sprite = boxArray[1];
                 SpriteRenderer.color = Color.yellow;
                 break;
             case 2:
+                Debug.Log("Changing to orange");
                 SpriteRenderer.sprite = boxArray[1];
-                SpriteRenderer.color = Color.orange;
+                SpriteRenderer.color = new Color(1f, 0.5f, 0f);
                 break;
             case 3:
+                Debug.Log("Changing to red");
                 SpriteRenderer.sprite = boxArray[2];
                 SpriteRenderer.color = Color.red;
                 break;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("forge"))
+        {
+            Debug.Log("I am being hit!");
+            repairDamage();
         }
     }
 }

@@ -25,6 +25,8 @@ public class HammerScriptHandler : MonoBehaviour
                 Instantiate(noteBoxHammer, new Vector3(-5 + (i * 0.4f) , i - 1f, i * 2),Quaternion.identity);
             }
         }
+
+        FindFirstObjectByType<HammerCompletionZone>()?.StartMinigame();
     }
 
     // Update is called once per frame
