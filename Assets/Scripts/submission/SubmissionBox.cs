@@ -24,7 +24,7 @@ public class SubmissionBox : MonoBehaviour
 
     public AudioSource audioSource;
     [SerializeField] private AudioClip successAudio;
-    [SerializeField] private AudioSource failAudio;
+    [SerializeField] private AudioClip failAudio;
 
     private Dictionary<MiniGameType, RequirementUIItem> uiItems = new Dictionary<MiniGameType, RequirementUIItem>();
 

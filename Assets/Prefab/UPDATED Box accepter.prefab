@@ -116,7 +116,7 @@ AudioSource:
   m_GameObject: {fileID: 1875062056600425187}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b7366d2dad651e64ba95db52e7153785, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -345,6 +345,10 @@ PrefabInstance:
       value: 240
       objectReference: {fileID: 0}
     - target: {fileID: 9003488896102213077, guid: d8de74b33ae0af5438055308440b2605, type: 3}
+      propertyPath: failAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: b1ea181abf5f28843a3cf08982b666e5, type: 3}
+    - target: {fileID: 9003488896102213077, guid: d8de74b33ae0af5438055308440b2605, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 321358594283149271}
@@ -352,6 +356,10 @@ PrefabInstance:
       propertyPath: uiContainer
       value: 
       objectReference: {fileID: 8151646906158749241}
+    - target: {fileID: 9003488896102213077, guid: d8de74b33ae0af5438055308440b2605, type: 3}
+      propertyPath: successAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: d2aac9437cbc05d41a503c321412aa92, type: 3}
     - target: {fileID: 9003488896102213077, guid: d8de74b33ae0af5438055308440b2605, type: 3}
       propertyPath: overallTimerBar
       value: 
