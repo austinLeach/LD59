@@ -8,6 +8,11 @@ public class GuitarMinigameSequencer : MonoBehaviour
     [SerializeField] private GameObject stringBagStep;
     [SerializeField] private GameObject spinStep;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip scissorsCompleteClip;
+    [SerializeField] private AudioClip stringCompleteClip;
+
     [Header("Instructions")]
     [SerializeField] private TMP_Text instructionText;
     [SerializeField] private string scissorsInstruction = "Cut the old string with the scissors!";
@@ -25,19 +30,20 @@ public class GuitarMinigameSequencer : MonoBehaviour
     // Called by DraggableUI.onSuccess
     public void OnScissorsComplete()
     {
+        PlayClip(scissorsCompleteClip);
         GoToStep(2);
     }
 
     // Called by StringBagItem.onSuccess
     public void OnStringComplete()
     {
+        PlayClip(stringCompleteClip);
         GoToStep(3);
     }
 
     // Called by SpinUI.onSuccess
     public void OnSpinComplete()
     {
-        
         SetInstruction(completeInstruction);
         OnMinigameFinished?.Invoke(true);
     }
@@ -64,6 +70,12 @@ public class GuitarMinigameSequencer : MonoBehaviour
             case 2: SetInstruction(stringInstruction);   break;
             case 3: SetInstruction(spinInstruction);     break;
         }
+    }
+
+    private void PlayClip(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+            audioSource.PlayOneShot(clip);
     }
 
     private void SetInstruction(string text)

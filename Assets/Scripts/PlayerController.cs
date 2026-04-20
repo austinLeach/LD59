@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class PlayerController : MonoBehaviour
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer _sr;
     private AudioSource audioSource;
     [SerializeField] private AudioClip rejectSound;
+    [SerializeField] private AudioSource mainAudio;
     [SerializeField] private LayerMask boundaryLayers;
     private Vector2 baseColliderOffset;
 
@@ -37,6 +39,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (mainAudio != null && !mainAudio.isPlaying)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            return;
+        }
+
         HandlePickup();
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");

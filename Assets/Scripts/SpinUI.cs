@@ -7,6 +7,8 @@ public class SpinUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDr
     [SerializeField] private int requiredRotations = 3;
     [SerializeField] private GameObject objectToDestroy;
     [SerializeField] public UnityEvent onSuccess;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip spinningClip;
 
     private RectTransform rectTransform;
     private bool isDragging;
@@ -21,6 +23,8 @@ public class SpinUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDr
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (!isDragging && audioSource != null && spinningClip != null)
+            audioSource.PlayOneShot(spinningClip);
         isDragging = true;
         lastAngle = GetAngle(eventData.position);
     }
