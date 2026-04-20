@@ -4,6 +4,7 @@ using UnityEngine;
 public class PushButton : MonoBehaviour
 {
     public GameObject forge;
+    public bool pushOnOff = false;
 
     private BoxCollider2D boxCollider;
 
@@ -23,10 +24,12 @@ public class PushButton : MonoBehaviour
 
             if (boxCollider.OverlapPoint(ray))
             {
+                pushOnOff = !pushOnOff;
                 //activate pull lever in forge controller
                 forge.gameObject.GetComponent<ForgeController>().pullLever = true;
-                Debug.Log("Overlap: " + forge.gameObject.GetComponent<ForgeController>().pullLever);
-                
+                forge.gameObject.GetComponent<ForgeController>().onOff = true;
+                //Debug.Log("Overlap: " + forge.gameObject.GetComponent<ForgeController>().pullLever);
+
             }
         }
 

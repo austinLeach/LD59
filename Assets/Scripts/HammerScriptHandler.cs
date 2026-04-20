@@ -41,6 +41,7 @@ public class HammerScriptHandler : MonoBehaviour
             int layerObject = 3;
             if (anchorSet == false)
             {
+                
                 hitObj = Physics2D.Raycast(ray, ray, layerObject);
             }
             if (hitObj.collider != null && hitObj.collider.gameObject.CompareTag("Box"))
