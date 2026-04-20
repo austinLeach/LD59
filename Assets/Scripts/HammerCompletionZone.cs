@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class HammerCompletionZone : MonoBehaviour
@@ -14,6 +15,8 @@ public class HammerCompletionZone : MonoBehaviour
     private BoxCollider2D zone;
     private bool completed = false;
     private bool ready = false;
+
+    public event Action<bool> OnMinigameFinished;
 
     private void Awake()
     {
@@ -73,6 +76,7 @@ public class HammerCompletionZone : MonoBehaviour
             if (note != null) Destroy(note.gameObject);
         if (objectToDestroy != null) Destroy(objectToDestroy);
         onAllRepaired.Invoke();
+        OnMinigameFinished?.Invoke(true);
     }
 
     public void Reset()

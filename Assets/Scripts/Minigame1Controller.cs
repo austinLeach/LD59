@@ -92,6 +92,7 @@ public class Minigame1Controller : MonoBehaviour
     {
         waitingForMinigame = true;
         depositedBox.isProgressing = false;
+        activeProgressBar?.SetPaused(true);
         // Player now needs to walk over and press E — 
         // AcceptMinigameInteraction() is called from your existing E press logic
     }
@@ -146,10 +147,16 @@ public class Minigame1Controller : MonoBehaviour
 
     public void StopProgress()
     {
+        Debug.Log("StopProgress called");
         if (depositedBox != null)
             depositedBox.isProgressing = false;
+
+        ProgressBar bar = activeProgressBar;
+        Debug.Log("activeProgressBar is: " + (bar == null ? "NULL" : "valid"));
         activeProgressBar = null;
         depositedBox = null;
+
+        bar?.ShowComplete();
     }
 
     private void LaunchMinigame()
@@ -192,7 +199,8 @@ public class Minigame1Controller : MonoBehaviour
         }
         else if (minigameType == MiniGameType.Drums)
         {
-            // wire up drums here when ready
+            HammerCompletionZone ui = activeMinigame.GetComponentInChildren<HammerCompletionZone>();
+            if (ui != null) ui.OnMinigameFinished += HandleMinigameFinished;
         }
     }
 
@@ -209,6 +217,7 @@ public class Minigame1Controller : MonoBehaviour
         // Resume progress regardless of win/lose — 
         // adjust this if losing should reset progress
         waitingForMinigame = false;
+        activeProgressBar?.SetPaused(false);
         if (depositedBox != null)
         {
             depositedBox.isProgressing = true;
