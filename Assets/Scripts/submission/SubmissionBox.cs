@@ -187,7 +187,7 @@ public class SubmissionBox : MonoBehaviour
 
         audioSource.PlayOneShot(successAudio, 0.5f);
         isActive = false;
-
+        currentSetIndex++;
         StartNextSet();
     }
 
