@@ -30,7 +30,7 @@ public class SubmissionBox : MonoBehaviour
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
         overallTimerMax = 0f;
         foreach (var set in submissionSets)
             overallTimerMax += set.timeLimit;
