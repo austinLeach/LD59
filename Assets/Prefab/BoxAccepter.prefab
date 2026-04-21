@@ -176,8 +176,29 @@ MonoBehaviour:
     - boxType: 0
       amount: 3
     timeLimit: 30
+  - requirements:
+    - boxType: 0
+      amount: 3
+    timeLimit: 30
+  - requirements:
+    - boxType: 0
+      amount: 3
+    timeLimit: 30
+  - requirements:
+    - boxType: 0
+      amount: 3
+    timeLimit: 30
+  - requirements:
+    - boxType: 0
+      amount: 3
+    timeLimit: 30
+  - requirements:
+    - boxType: 0
+      amount: 3
+    timeLimit: 30
   timer: 60
   timerBar: {fileID: 2960334955901931366}
+  overallTimerBar: {fileID: 0}
   uiContainer: {fileID: 6879004704677505841}
   uiItemPrefab: {fileID: 6585100434624431972, guid: f26720b9996694741852513f2d1757e4, type: 3}
   boxIcons:
@@ -189,6 +210,9 @@ MonoBehaviour:
     icon: {fileID: -1838806803, guid: 769e46e803ec2ec47b6d0cdb1a3138c2, type: 3}
   - type: 2
     icon: {fileID: -101989873, guid: a3dc70f3163e37748ab31c571d3f1574, type: 3}
+  audioSource: {fileID: 0}
+  successAudio: {fileID: 0}
+  failAudio: {fileID: 0}
 --- !u!50 &2358988311417043175
 Rigidbody2D:
   serializedVersion: 5
