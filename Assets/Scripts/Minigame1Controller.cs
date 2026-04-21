@@ -7,11 +7,11 @@ public class Minigame1Controller : MonoBehaviour
     public PickupBox boxInRange = null;
     public bool hasBoxDeposited = false;
 
-    [SerializeField] private float pianoProgressDuration = 15f;
-    [SerializeField] private float guitarProgressDuration = 15f;
-    [SerializeField] private float vocalsProgressDuration = 15f;
-    [SerializeField] private float drumsProgressDuration = 15f;
-    [SerializeField] private float progressDuration = 15f;
+    private float pianoProgressDuration = 7f;
+    private float guitarProgressDuration = 8f;
+    private float vocalsProgressDuration = 5f;
+    private float drumsProgressDuration = 4f;
+    public float progressDuration = 15f;
 
     public MiniGameType minigameType = MiniGameType.Piano;
 
@@ -37,7 +37,8 @@ public class Minigame1Controller : MonoBehaviour
     {
         { MiniGameType.Piano,  new float[] { 0.33f, 0.66f } },
         { MiniGameType.Guitar, new float[] { 0.50f } },
-        { MiniGameType.Vocals, new float[] { 0.25f, 0.50f, 0.75f } },
+        //{ MiniGameType.Vocals, new float[] { 0.25f, 0.50f, 0.75f } },
+        { MiniGameType.Vocals, new float[] { 0.33f, 0.66f } },
         { MiniGameType.Drums,  new float[] { 0.50f } },
     };
 
@@ -58,15 +59,33 @@ public class Minigame1Controller : MonoBehaviour
             boxInRange = null;
     }
 
+    void Start()
+    {
+        Debug.Log("in start setting number is " + progressDuration + " currently");
+        if (minigameType == MiniGameType.Drums)
+        {
+            progressDuration = drumsProgressDuration;
+        }
+        else if (minigameType == MiniGameType.Guitar)
+        {
+            progressDuration = guitarProgressDuration;
+        }
+        else if (minigameType == MiniGameType.Vocals)
+        {
+            progressDuration = vocalsProgressDuration;
+        }
+        else
+        {
+            Debug.Log("in piano code, pianoprogressduration is " + pianoProgressDuration);
+            progressDuration = pianoProgressDuration;
+        }
+        Debug.Log("in start just set to " + progressDuration + " currently");
+    }
+
     private void Update()
     {
-        switch (minigameType)
-        {
-            case MiniGameType.Piano: progressDuration = pianoProgressDuration; break;
-            case MiniGameType.Guitar: progressDuration = guitarProgressDuration; break;
-            case MiniGameType.Vocals: progressDuration = vocalsProgressDuration; break;
-            case MiniGameType.Drums: progressDuration = drumsProgressDuration; break;
-        }
+
+        
 
         if (depositedBox == null || !depositedBox.isProgressing || waitingForMinigame) return;
 
