@@ -185,10 +185,11 @@ public class SubmissionBox : MonoBehaviour
     {
         Debug.Log("FAILED!");
 
-        audioSource.PlayOneShot(successAudio, 0.5f);
+        audioSource.PlayOneShot(failAudio, 0.5f);
         isActive = false;
         currentSetIndex++;
         StartNextSet();
+        if (entryBuffer != null) entryBuffer.SpawnBoxesForCurrentSet();
     }
 
     IEnumerator WaitAndStartNext()
