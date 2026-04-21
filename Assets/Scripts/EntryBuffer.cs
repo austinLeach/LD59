@@ -17,6 +17,8 @@ public class EntryBuffer : MonoBehaviour
     private int indexA = 0;
     private int indexB = 0;
     private int boxNum = 0;
+    private Vector3 spawnLocation;
+    private string whatSlot;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -55,15 +57,25 @@ public class EntryBuffer : MonoBehaviour
                         break;
                 }
                 //Find open slot to spawn into
-                if (entrySlots[c] == true)
+                int c = 0; 
+                while (c < 8)
                 {
-
+                    if (entrySlots[c] == true)
+                    {
+                        c++;
+                        whatSlot = "Slot" + c.ToString();
+                    }
+                    else {
+                        //make slot + number
+                    }
                 }
+
 
                 indexB = 0;
                 while(indexB < req.amount)
                 {
-                    //Instantiate(boxTypes[boxNum],);
+                    //BASED ON C USE THE SLOT LOCATION
+                    Instantiate(boxTypes[boxNum],spawnLocation);
                     indexB++;
                 }
                 //Spawn required boxes until count reached
