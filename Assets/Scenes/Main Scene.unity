@@ -1244,6 +1244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UPDATED Box accepter
       objectReference: {fileID: 0}
+    - target: {fileID: 5853698788833160771, guid: 0d19d6c0deec0164abdad4dac730ae65, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5955311818457127133, guid: 0d19d6c0deec0164abdad4dac730ae65, type: 3}
       propertyPath: entryBuffer
       value: 

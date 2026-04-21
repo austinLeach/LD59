@@ -125,6 +125,7 @@ public class SubmissionBox : MonoBehaviour
                 {
                     currentProgress[box.minigameType]++;
                     uiItems[box.minigameType].UpdateCount(currentProgress[box.minigameType]);
+                    GlobalVariables.score++;
                     CheckCompletion();
                     return true;
                 }
@@ -150,7 +151,7 @@ public class SubmissionBox : MonoBehaviour
                 return;
         }
 
-        GlobalVariables.score++;
+        
         SuccessSet();
     }
 
@@ -185,10 +186,11 @@ public class SubmissionBox : MonoBehaviour
     {
         Debug.Log("FAILED!");
 
-        audioSource.PlayOneShot(successAudio, 0.5f);
+        audioSource.PlayOneShot(failAudio, 0.5f);
         isActive = false;
         currentSetIndex++;
         StartNextSet();
+        if (entryBuffer != null) entryBuffer.SpawnBoxesForCurrentSet();
     }
 
     IEnumerator WaitAndStartNext()
