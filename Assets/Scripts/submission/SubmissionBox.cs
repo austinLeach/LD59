@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SubmissionBox : MonoBehaviour
 {
     public List<SubmissionSet> submissionSets;
-    private int currentSetIndex = 0;
+    public int currentSetIndex = 0;
 
     private Dictionary<MiniGameType, int> currentProgress = new Dictionary<MiniGameType, int>();
 
@@ -154,6 +154,8 @@ public class SubmissionBox : MonoBehaviour
         SuccessSet();
     }
 
+    public EntryBuffer entryBuffer;
+
     void SuccessSet()
     {
         Debug.Log("SUCCESS!");
@@ -176,6 +178,7 @@ public class SubmissionBox : MonoBehaviour
 
         currentSetIndex++;
         StartNextSet();
+        if (entryBuffer != null) entryBuffer.SpawnBoxesForCurrentSet();
     }
 
     void FailSet()
