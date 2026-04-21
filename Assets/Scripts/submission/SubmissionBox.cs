@@ -188,7 +188,7 @@ public class SubmissionBox : MonoBehaviour
         audioSource.PlayOneShot(successAudio, 0.5f);
         isActive = false;
 
-        StartCoroutine(WaitAndRestartSet());
+        StartNextSet();
     }
 
     IEnumerator WaitAndStartNext()
