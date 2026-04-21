@@ -125,6 +125,7 @@ public class SubmissionBox : MonoBehaviour
                 {
                     currentProgress[box.minigameType]++;
                     uiItems[box.minigameType].UpdateCount(currentProgress[box.minigameType]);
+                    GlobalVariables.score++;
                     CheckCompletion();
                     return true;
                 }
@@ -150,7 +151,7 @@ public class SubmissionBox : MonoBehaviour
                 return;
         }
 
-        GlobalVariables.score++;
+        
         SuccessSet();
     }
 
