@@ -13,6 +13,8 @@ public class Minigame1Controller : MonoBehaviour
     private float drumsProgressDuration = 4f;
     public float progressDuration = 15f;
 
+    PlayerController playerController = null;
+
     public MiniGameType minigameType = MiniGameType.Piano;
 
     [Header("Minigame Prefabs")]
@@ -29,7 +31,7 @@ public class Minigame1Controller : MonoBehaviour
     [SerializeField] private Transform uiParent;
 
     private GameObject activeMinigame = null;
-    private PickupBox depositedBox = null;
+    public PickupBox depositedBox = null;
     private ProgressBar activeProgressBar;
 
     // Checkpoints per minigame type
@@ -120,9 +122,11 @@ public class Minigame1Controller : MonoBehaviour
 
     // Call this from your player interaction (E key) when near the station
     // while waitingForMinigame is true
-    public void AcceptMinigameInteraction()
+    public void AcceptMinigameInteraction(PlayerController playerControllerPassed)
     {
         if (!waitingForMinigame) return;
+        playerController = playerControllerPassed;
+        playerController.gameObject.SetActive(false);
         LaunchMinigame();
     }
 
@@ -147,6 +151,15 @@ public class Minigame1Controller : MonoBehaviour
     public PickupBox TakeBox()
     {
         // Stop without showing complete
+
+        if(depositedBox != null)
+        {
+            Debug.Log("DEPOSIT BOX IS NOT NULL");
+        }
+        else
+        {
+            Debug.Log("DEPOSIT BOX IS NULL");
+        }
         if (depositedBox != null)
             depositedBox.isProgressing = false;
         activeProgressBar = null;
@@ -155,6 +168,17 @@ public class Minigame1Controller : MonoBehaviour
         depositedBox = null;
         hasBoxDeposited = false;
         waitingForMinigame = false;
+
+        if(box != null)
+        {
+            Debug.Log("BOX BEING HANDED OUT IS NOT NULL");
+        }
+        else
+        {
+            Debug.Log("BOX BEING HANDED OUT IS NULL");
+        }
+
+        
         return box;
     }
 
@@ -180,7 +204,7 @@ public class Minigame1Controller : MonoBehaviour
         ProgressBar bar = activeProgressBar;
         Debug.Log("activeProgressBar is: " + (bar == null ? "NULL" : "valid"));
         activeProgressBar = null;
-        depositedBox = null;
+        //depositedBox = null;
 
         bar?.ShowComplete();
     }
@@ -236,14 +260,21 @@ public class Minigame1Controller : MonoBehaviour
 
     private void HandleMinigameFinished(bool won)
     {
+        
+        
         Debug.Log(won ? "Minigame won!" : "Minigame lost.");
+
+        playerController.gameObject.SetActive(true);
+        //playerController = null;
 
         if(won)
         {
+            Debug.Log("made it into win");
             audioSource.PlayOneShot(winSound, 0.2f);
         }
         else
         {
+            Debug.Log("made it into fail");
             audioSource.PlayOneShot(failSound);
         }
 
@@ -252,8 +283,8 @@ public class Minigame1Controller : MonoBehaviour
             Destroy(activeMinigame);
             activeMinigame = null;
         }
-
-        if(!won)
+        Debug.Log("made it into about to relaunch");
+        if (!won)
         {
             LaunchMinigame();
             return;

@@ -17,11 +17,13 @@ public class MicrophoneDropScript : MonoBehaviour
         MicGamePlayerController player = collision.GetComponent<MicGamePlayerController>();
         if (player != null)
         {
+            Debug.Log("am in win script");
             OnMicLanded?.Invoke(true);
         }
 
         if (collision.gameObject.CompareTag("floor"))
         {
+            Debug.Log("am in fail script");
             OnMicLanded?.Invoke(false);
         }
 

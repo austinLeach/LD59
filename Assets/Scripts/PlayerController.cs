@@ -150,12 +150,25 @@ public class PlayerController : MonoBehaviour
             }
             else if (nearbyMinigame != null && nearbyMinigame.waitingForMinigame == true)
             {
-                nearbyMinigame.AcceptMinigameInteraction();
+                nearbyMinigame.AcceptMinigameInteraction(this);
             }
             else if (carriedBox == null && nearbyMinigame != null && nearbyMinigame.hasBoxDeposited)
             {
                 Debug.Log("Picking up box from minigame");
+                if(nearbyMinigame.depositedBox)
+                {
+                    Debug.Log("minigame's box is null");
+                }    
                 carriedBox = nearbyMinigame.TakeBox();
+                Debug.Log("about to pickup box");
+                if(carriedBox == null)
+                {
+                    Debug.Log("carried box is null");
+                }
+                else
+                {
+                    Debug.Log("carried box is not null");
+                }
                 carriedBox.GetPickedUp(transform);
             }
             else if (nearbyBox != null)
