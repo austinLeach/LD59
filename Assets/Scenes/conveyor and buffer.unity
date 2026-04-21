@@ -1113,10 +1113,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EntryBuffer
   boxTypes:
-  - {fileID: 5534010367981464854, guid: 61b084c02aa2b5f408d888236f73c955, type: 3}
-  - {fileID: 5534010367981464854, guid: 342cdd9cc0b20dc41a411faff7c677de, type: 3}
-  - {fileID: 5534010367981464854, guid: e98b61f163013214abc90704a3f602e8, type: 3}
-  - {fileID: 5534010367981464854, guid: 20fbed4baab8ea24780cf19618d5107e, type: 3}
+  - {fileID: 5534010367981464854, guid: e40f7a086bd27c048a7b98b2e219c268, type: 3}
+  - {fileID: 5534010367981464854, guid: 3382906667549564d9d458df456f890c, type: 3}
+  - {fileID: 5534010367981464854, guid: aa3331943faa3e2459a59cb3e737b0e8, type: 3}
+  - {fileID: 5534010367981464854, guid: 7fd69e104cb341f4babd123b7e7be5b3, type: 3}
+  pathObj: []
 --- !u!4 &1532718238
 Transform:
   m_ObjectHideFlags: 0

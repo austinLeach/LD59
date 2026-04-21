@@ -150,6 +150,7 @@ public class SubmissionBox : MonoBehaviour
                 return;
         }
 
+        GlobalVariables.score++;
         SuccessSet();
     }
 

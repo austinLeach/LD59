@@ -3,6 +3,7 @@ using UnityEngine;
 
 public static class GlobalVariables
 {
+    public static int score = 0;
     public static bool Timer(ref bool isChanging, ref float timer)
     {
         if (isChanging)
