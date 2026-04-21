@@ -227,10 +227,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        SubmissionBox submissionBox = collision.GetComponent<SubmissionBox>();
+
+
         Minigame1Controller minigame = collision.GetComponent<Minigame1Controller>();
-        if(minigame != null && minigame == nearbyMinigame)
+        if (minigame != null && minigame == nearbyMinigame)
         {
             nearbyMinigame = null;
+        }
+
+        if (submissionBox != null)
+        {
+            nearbySubmissionBox = null;
         }
     }
 }
