@@ -17,7 +17,7 @@ public class totalCoinsAtEnd : MonoBehaviour
     {
         if (totalscoretext != null)
         {
-            totalscoretext.text = totalscoretext.text + GlobalVariables.score.ToString();
+            totalscoretext.text = totalscoretext.text + GlobalVariables.score.ToString() + "/15";
         }
     }
 
